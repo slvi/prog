@@ -1,0 +1,91 @@
+LIST ALL DATABASES:
+list
+
+STATUS:
+status
+
+VERSION:
+version
+
+HELP:
+table_help
+help
+help 'name'
+
+USERNAME:
+whoami
+
+CREATE TABLE:
+create 'emp','personal data','professional data'
+
+DROP TABLE (DISABLE FIRST):
+drop 'emp'
+
+DISABLE TABLE:
+disable 'emp'
+
+SCAN TABLE:
+scan 'emp'
+
+CHECK DISABLED:
+is_disabled 'emp'
+
+ENABLE TABLE:
+enable 'emp'
+
+CHECK ENABLED:
+is_enabled 'emp'
+
+DESCRIBE TABLE:
+describe 'emp'
+
+DISABLE/ENABLE ALL TABLES:
+disable_all '.*'
+enable_all '.*'
+
+DISABLE/ENABLE MULTIPLE TABLES:
+disable_all 'r.*'
+enable_all 'r.*'
+// disables/enables tables starting with 'r'
+
+ENTER DATA:
+put 'emp','1','personal data:name','raj'
+
+ALTER NUMBER OF VERSIONS OF A COLUMN FAMILY:
+alter 'emp', NAME=>'personal data',VERSIONS =>2
+
+ADD A COLUMN FAMILY:
+alter 'emp','educational data'
+
+CHECK EXISTENCE OF TABLE:
+exists 'emp'
+
+DROP MULTIPLE TABLES:
+drop_all 'r.*'
+
+INSERT DATA:
+put 'emp','1','personal data:name','raju'
+put 'emp','1','personal data:city','hyderabad'
+put 'emp','1','professional data:salary','manager'
+put 'emp','1','professional data:salary','50000'
+
+UPDATE DATA:
+put 'emp','1','personal data:city','delhi'
+//same as insert data
+
+READ DATA:
+get 'emp','1'
+get 'emp','1',{COLUMN => 'personal data:name'}
+get 'emp','1',{COLUMN => ['personal data:name','personal data:city']}
+
+DELETE DATA:
+delete 'emp','1','personal data:city'
+
+DELETE ENTIRE ROW:
+deleteall 'emp','1'
+
+COUNT NUMBER OF ROWS IN TABLE:
+count 'emp'
+
+TRUNCATE TABLE:
+truncate 'emp'

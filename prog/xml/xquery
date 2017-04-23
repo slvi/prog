@@ -1,0 +1,12 @@
+for $x in doc("/home/obed/editix2/books.xml")/books/book
+where $x/price > 30
+return $x/title
+
+let $books:= (doc("/home/obed/editix2/books.xml")/books/book)
+return<results>
+{
+for $x in $books
+where $x/price>30
+order by $x/price
+return $x/title
+}</results>

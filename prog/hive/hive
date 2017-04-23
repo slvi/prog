@@ -1,0 +1,70 @@
+start-dfs.sh
+hive
+
+SHOW DATABASES;
+
+CREATE DATABASE userdb;
+CREATE DATABASE IF NOT EXISTS userdb;
+CREATE SCHEMA userdb;
+CREATE SCHEMA IF NOT EXISTS userdb;
+
+DROP DATABASE userdb;
+DROP DATABASE IF EXISTS userdb;
+DROP SCHEMA userdb;
+DROP SCHEMA IF EXISTS userdb;
+
+CREATE TABLE IF NOT EXISTS employee(
+eid int,
+name String,
+salary String,
+destination String)
+COMMENT 'Employee details'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+DESCRIBE EMPLOYEE;
+
+LOAD DATA LOCAL INPATH '/home/obed/sample.txt' OVERWRITE INTO TABLE employee;
+
+ALTER TABLE employee RENAME TO emp;
+
+ALTER TABLE emp CHANGE name ename string;
+
+ALTER TABLE emp CHANGE salary salary Double;
+
+ALTER TABLE emp ADD COLUMNS(dept STRING COMMENT "Department name");
+
+ALTER TABLE emp REPLACE COLUMNS (empid INT, name STRING, salary DOUBLE, destination STRING, dept STRING);
+
+DROP TABLE EMP;
+DROP TABLE IF EXISTS EMP;
+
+create view emp1 as
+select * from emp
+where id > 2
+
+select * from emp where salary > 30000;
+
+select id,name,dept from emp order by dept;
+
+select dept ,count(*) from emp group by dept;
+
+SELECT c.id, c.name, c.age, o.amount
+from customers c join orders o
+on (c.id=o.id);
+
+select c.id,c.name,o.amount,o.odate
+from customers c
+left outer join orders o
+on (c.id=o.id);
+
+select c.id,c.name,o.amount,o.odate from
+customers c right outer join orders o
+on (c.id=o.id);
+
+select c.id,c.name,o.amount,o.odate
+from customers c
+full outer join orders o
+on (c.id=o.id);

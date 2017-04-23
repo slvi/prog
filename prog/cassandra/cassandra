@@ -1,0 +1,129 @@
+cassandra -f
+cqlsh
+
+help
+
+help name
+
+describe keyspaces;
+
+create keyspace tutorialspoint with replication = {'class':'SimpleStrategy','replication_factor':1} AND DURABLE_WRITES = true;
+
+select * from system.schema_keyspaces;
+
+use tutorialspoint;
+
+ALTER KEYSPACE tutorialspoint WITH REPLICATION = {'class':'SimpleStrategy','replication_factor':1} AND DURABLE_WRITES = true;
+
+DROP KEYSPACE tutorialspoint;
+
+CREATE TABLE emp(
+emp_id int PRIMARY KEY,
+emp_name text,
+emp_city text,
+emp_sal varint,
+emp_phone varint);
+
+ALTER TABLE emp ADD emp_email text;
+
+ALTER TABLE emp DROP emp_email;
+
+DROP TABLE emp;
+
+DESCRIBE COLUMNFAMILIES;
+
+TRUNCATE emp;
+
+CREATE INDEX name ON emp(emp_name);
+
+DROP INDEX name;
+
+BEGIN BATCH
+insert statements;
+update statements;
+delete statements;
+APPLY BATCH;
+
+INSERT INTO emp
+(emp_id,emp_name,emp_city,emp_phone,emp_sal)
+VALUES (1,'ram','hyderabad',9876543210,5000);
+
+UPDATE emp SET emp_city='delhi',emp_sal=5000 WHERE emp_id=2
+
+SELECT * FROM emp;
+
+SELECT emp_id,emp_name FROM emp;
+
+CREATE INDEX ON emp(emp_sal);
+SELECT * FROM emp WHERE emp_sal=5000;
+
+delete emp_sal from emp where emp_id = 3;
+
+DELETE FROM EMP WHERE emp_id=3;
+
+CREATE TABLE data(
+name text PRIMARY KEY,
+email list <text>);
+
+INSERT INTO data (name,email)
+VALUES ('ramu',['abc@gmail.com','cba@yahoo.com']);
+
+update data
+set email = email + ['obed@abc.com']
+where name='ramu';
+
+UPDATE DATA
+SET email = email - ['cba@yahoo.com']
+WHERE name='ramu';
+
+
+CREATE TABLE data2(
+name text PRIMARY KEY,
+phone set <varint>);
+
+INSERT INTO data2 (name,phone)
+VALUES ('rahman',{9876543210,876543210});
+
+UPDATE data2
+SET phone = phone + {76543210}
+WHERE name='rahman';
+
+UPDATE data2
+SET phone = phone - {876543210}
+WHERE name='rahman';
+
+CREATE TABLE data3(
+name text PRIMARY KEY,
+address map <text,text>);
+
+insert into data3
+name,addr) VALUES
+robin',{'home':'hyderabad',
+office':'delhi'});
+
+UPDATE data3
+SET addr=addr+{'office':'mumbai'}
+WHERE name='robin';
+
+UPDATE data3
+SET addr=addr+{'meeting':'pune'}
+WHERE name='robin';
+
+UPDATE data3 SET addr=addr-{'office'} WHERE name='robin';
+
+CREATE TYPE card_details(
+num int,
+pin int,
+name text);
+
+describe types;
+
+describe type card_details;
+
+ALTER TYPE card_details
+ADD cvv int;
+
+ALTER TYPE card_details
+RENAME name TO username;
+
+DROP TYPE card_details;
